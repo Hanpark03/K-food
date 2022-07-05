@@ -1,0 +1,67 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a User Management Micro Service"
+  version: "1.0.0"
+  title: "User Management"
+basePath: "/"
+tags:
+- name: "api"
+  description: "Microservice API"
+schemes:
+- "https"
+- "http"
+paths:
+  /getRestaurantHistory:
+    post:
+      tags:
+      - "api"
+      summary: "return restaurant list that the target user selected"
+      description: ""
+      operationId: "get_restaurant_history"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User Information"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+  /getFoodHistory:
+    post:
+      tags:
+      - "api"
+      summary: "return food list that the target user selected"
+      description: ""
+      operationId: "get_food_history"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User Information"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+definitions:
+  data:
+    type: "object"
+    required:
+    - "data"
+    properties:
+      data:
+        type: "object"
+        properties: {}

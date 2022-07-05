@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  apiserver:
+    build: './apiserver'    
+    ports:
+      - '8080:8080'
+    links:
+      - "database"
+      - "datalookup"
+      - "recommandation"
+      - "usermanagement"
+
+  datalookup:
+    build: './microservices/datalookup'
+    links:
+      - "database"
+  recommandation:
+    build: './microservices/recommandation'
+    links:
+      - "database"
+  usermanagement:
+    build: './microservices/usermanagement'
+    links:
+      - "database"
+
+  database:
+    image: 'mongo'
+    container_name: 'my-mongo-container'
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+
+  web:
+    build: './web/kfood'
+    ports:
+      - '3000:3000'
+    links:
+      - "apiserver"

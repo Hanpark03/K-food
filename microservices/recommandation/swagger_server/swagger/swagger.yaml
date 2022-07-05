@@ -1,0 +1,111 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a Recommandation Micro Service"
+  version: "1.0.0"
+  title: "Recommandation"
+basePath: "/"
+tags:
+- name: "api"
+  description: "Microservice API"
+schemes:
+- "https"
+- "http"
+paths:
+  /getRestaurantbyDefault:
+    post:
+      tags:
+      - "api"
+      summary: "return restaurant list by user info"
+      description: ""
+      operationId: "get_restaurantby_default"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User Info"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+  /getRestaurantbyKeyword:
+    post:
+      tags:
+      - "api"
+      summary: "return restaurant list by keyword and user info"
+      description: ""
+      operationId: "get_restaurantby_keyword"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Keyword and User Info"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+  /getFoodbyCategory:
+    post:
+      tags:
+      - "api"
+      summary: "return food list by category and restaurant list by user info"
+      description: ""
+      operationId: "get_foodby_category"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Category and User Info"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+  /getRestaurantbyFood:
+    post:
+      tags:
+      - "api"
+      summary: "return restaurant list by food and user"
+      description: ""
+      operationId: "get_restaurantby_food"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Food and User Info"
+        required: true
+        schema:
+          $ref: "#/definitions/data"
+      responses:
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "swagger_server.controllers.api_controller"
+definitions:
+  data:
+    type: "object"
+    required:
+    - "data"
+    properties:
+      data:
+        type: "object"
+        properties: {}
