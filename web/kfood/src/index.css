@@ -14,4 +14,136 @@ code {
 
 .map-container {
   height: 100vh;
+  position: absolute;
+  left: 0px;
+  top: 0px;  
+}
+
+.searchbar-div{
+  position: fixed;
+  left: 30px;
+  top: 10px;
+  z-index: 0; 
+  width: 400px;
+  height: 46px;
+  border: 3px solid #FFFFFF;
+  margin: 0px auto;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border-color: #DDDDDD;
+  border-width: 0.5px;
+}
+.searchbar-input{
+  width:  345px;
+  height: 32px;
+  padding: 0px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.searchbar-input::placeholder{  
+  font-size:  1.2em;
+  font-style: italic;
+}
+.searchbar-icon{
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  opacity: 0.5;
+  padding-right: 3px;
+}
+
+.icon-div{
+  position: fixed;
+  width: 46px;
+  height: 46px;
+  border: 3px solid #FFFFFF;
+  margin: 0px auto;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border-color: #DDDDDD;
+  border-width: 0.5px;
+}
+
+.general-icon{
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 0px;
+  opacity: 0.5;
+  padding-right: 3px;
+}
+
+.side-div{
+  position: fixed;
+  left: 0px;
+  top: 0px;  
+  width: 500px;
+  height: 100vh;
+  border: 3px solid #FFFFFF;
+  margin: 0px auto;
+  background-color: #FFFFFF;  
+  border-color: #DDDDDD;
+  border-width: 0.5px;
+}
+
+.accountpopup-div{
+  position: fixed;
+  right: 10px;
+  top: 58px;  
+  width: 100px;
+  height: 30px;
+  border: 3px solid #FFFFFF;
+  margin: auto;
+  padding: 10px;
+  text-align: left;
+  background-color: #FFFFFF;  
+  border-color: #DDDDDD;
+  border-width: 0.5px;
+  border-radius: 10px;
+}
+
+.accountpopup-a{
+  font-family: Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+}
+
+.backicon{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.marker {width:0; height:0;}
+
+.marker  span {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-sizing:border-box;
+  width: 30px;
+  height: 30px;
+  color:#fff;
+  background: #693;
+  border:solid 2px;
+  border-radius: 0 70% 70%;
+  box-shadow:0 0 2px #000;
+  cursor: pointer;
+  transform-origin:0 0;
+  transform: rotateZ(-135deg);
+}
+
+.marker b {transform: rotateZ(135deg)}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
