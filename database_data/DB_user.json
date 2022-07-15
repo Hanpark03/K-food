@@ -1,0 +1,6 @@
+[{
+	"_id":"guest",
+	"Name":"Guest",
+	"RestaurantHistory": [],
+	"FoodHistory":[]
+}]
