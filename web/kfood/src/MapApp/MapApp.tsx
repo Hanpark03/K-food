@@ -18,7 +18,11 @@ class MapApp extends React.Component{
 			"zoom": 9,		
 			"map": null,
 			"sideProps": {
-				"convertSideFlag": this.convertSideFlag
+				"convertSideFlag": this.convertSideFlag,
+				"getSideProps": this.getSideProps,
+				"updateSideProps": this.updateSideProps,
+				"selectFood": this.selectFood,
+				"contentstype": 0 // 0 = nothing, 1 = category, 2 = menu, 3 = restaurant list, 4 = restaurant
 			},
 			"sideFlag": 0,
 			"accountProps": {
@@ -56,6 +60,15 @@ class MapApp extends React.Component{
 		    }
 		  ]
 		};
+		this.state.categoryData = [
+			{
+				"title": "Category test",
+				"foodData": [{
+					"title": "Food test",
+					"food": "Internal Food ID Test"
+				}]
+			}
+		]
 	}
 
 	convertAccountFlag = (flag:number) => {
@@ -70,8 +83,40 @@ class MapApp extends React.Component{
 		})		
 	}
 
-	foodOnClick = () => {
-		this.convertSideFlag(1)
+	updateSideProps = (sideFlag:any) => {
+		this.setState({			
+			sideProps : Object.assign({}, sideFlag),			
+		})	
+	}
+
+	selectFood = (food:any) => {
+		console.log("User selected food: " + food)
+	}
+
+	getSideProps = () => {
+		return this.state.sideProps
+	}
+
+	markerOnClick = (restrauntData:any) => {
+		let currentsideProps = Object.assign({}, this.state.sideProps)
+		currentsideProps["restaurantData"] = restrauntData
+		currentsideProps["contentstype"] = 4
+		this.setState({
+			sideFlag : 1,
+			sideProps : Object.assign({}, currentsideProps),
+			
+		})			
+	}
+
+	categoryOnClick = () => {
+		let currentsideProps = Object.assign({}, this.state.sideProps)
+		currentsideProps["categoryData"] = this.state.categoryData
+		currentsideProps["contentstype"] = 1
+		this.setState({
+			sideFlag : 1,
+			sideProps : Object.assign({}, currentsideProps),
+			
+		})
 	}
 
 	restaurantOnClick = () => {
@@ -100,23 +145,24 @@ class MapApp extends React.Component{
 		});
 		this.state.map = map
 		//Add Zoom Control		
-		map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-		this.state.restaurantData.features.forEach(function(marker:any, i:any) {
-		  // create a HTML element for each feature
-		  var el = document.createElement('div');
-		  el.className = 'marker';
-		  el.innerHTML = '<span><b>' + (i + 1) + '</b></span>'
-
-		  // make a marker for each feature and add it to the map
-		  new mapboxgl.Marker(el)
-		    .setLngLat(marker.geometry.coordinates)
-		    .setPopup(new mapboxgl.Popup({
-		        offset: 25
-		      }) // add popups
-		      .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
-		    .addTo(map);
-		});
+		map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');		
+		for(let i = 0; i < this.state.restaurantData.features.length; i = i + 1){			
+			let marker:any = this.state.restaurantData.features[i];	
+			var el = document.createElement('div');
+			el.className = 'marker';
+			el.innerHTML = '<span><b>' + (i + 1) + '</b></span>'
+			el.addEventListener('click', () => {
+				this.markerOnClick(marker)
+			});
+			// make a marker for each feature and add it to the map
+			new mapboxgl.Marker(el)
+			.setLngLat(marker.geometry.coordinates)
+			.setPopup(new mapboxgl.Popup({
+				offset: 25
+			}) // add popups
+			.setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
+			.addTo(map);
+		}
 	}
 
 
@@ -127,7 +173,7 @@ class MapApp extends React.Component{
 				{this.state.sideFlag > 0 ? <SideArea {...{"sideProps": this.state.sideProps}}/> : ""}	
 				{this.state.accountFlag > 0 ? <AccountPopup {...{"accountProps": this.state.accountProps}}/> : ""}	
 				<SearchBar {...{"searchByKeyword":this.searchByKeyword}}/>	
-				<Icons {...{"iconurl":"/icons/food_bank_icon.png", "top":"10px", "left":"520px", "onClick":this.foodOnClick}} />
+				<Icons {...{"iconurl":"/icons/food_bank_icon.png", "top":"10px", "left":"520px", "onClick":this.categoryOnClick}} />
 				<Icons {...{"iconurl":"/icons/table_restaurant_icon.png", "top":"10px", "left":"580px", "onClick":this.restaurantOnClick}}/>
 				<Icons {...{"iconurl":"/icons/manage_accounts_icon.png", "top":"10px", "right":" 60px", "onClick":this.accountOnClick}}/>				
 			</div>

@@ -91,6 +91,11 @@ code {
   border-width: 0.5px;
 }
 
+.side-contents{
+  margin-top: 60px;
+  margin-left: 5px;
+}
+
 .accountpopup-div{
   position: fixed;
   right: 10px;
@@ -101,7 +106,7 @@ code {
   margin: auto;
   padding: 10px;
   text-align: left;
-  background-color: #FFFFFF;  
+  background-color: #FFFFFF;
   border-color: #DDDDDD;
   border-width: 0.5px;
   border-radius: 10px;
