@@ -22,6 +22,7 @@ class MapApp extends React.Component{
 				"getSideProps": this.getSideProps,
 				"updateSideProps": this.updateSideProps,
 				"selectFood": this.selectFood,
+				"selectRestaurant": this.selectRestaurant,
 				"contentstype": 0 // 0 = nothing, 1 = category, 2 = menu, 3 = restaurant list, 4 = restaurant
 			},
 			"sideFlag": 0,
@@ -89,8 +90,24 @@ class MapApp extends React.Component{
 		})	
 	}
 
+	updateRestaurantList = (restaurantList:any) => {
+		let currentsideProps = Object.assign({}, this.state.sideProps)
+		currentsideProps["restaurantList"] = restaurantList
+		currentsideProps["contentstype"] = 3
+		this.setState({
+			sideFlag : 1,
+			sideProps : Object.assign({}, currentsideProps),
+			
+		})
+	}
+
 	selectFood = (food:any) => {
 		console.log("User selected food: " + food)
+		this.updateRestaurantList(this.state.restaurantData)
+	}
+
+	selectRestaurant = (Restaurant:any) => {		
+		this.markerOnClick(Restaurant)
 	}
 
 	getSideProps = () => {
@@ -120,7 +137,14 @@ class MapApp extends React.Component{
 	}
 
 	restaurantOnClick = () => {
-		this.convertSideFlag(1)
+		let currentsideProps = Object.assign({}, this.state.sideProps)
+		currentsideProps["restaurantList"] = this.state.restaurantData
+		currentsideProps["contentstype"] = 3
+		this.setState({
+			sideFlag : 1,
+			sideProps : Object.assign({}, currentsideProps),
+			
+		})
 	}
 
 	accountOnClick = () => {

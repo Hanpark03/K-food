@@ -43,7 +43,24 @@ class SideArea extends React.Component{
 		)
 	}
 
-	renderRestaurnt = (restaurantData:any) => {
+	onClickRestaurant = (restaurantData:any) => {
+		this.state.sideProps.selectRestaurant(restaurantData)
+	}
+
+	renderRestaurantList = (restaurantList:any) => {
+		return(
+			<div>
+				{restaurantList.features.map((data:any) => (
+					<div>
+						<a onClick={() => this.onClickRestaurant(data)} >{data.properties.title}</a>
+						<br></br>
+					</div>
+				))}
+			</div>
+		)
+	}
+
+	renderRestaurant = (restaurantData:any) => {
 		return(
 			<div>
 				{restaurantData.properties.title}
@@ -62,7 +79,8 @@ class SideArea extends React.Component{
 				<div className="side-contents">
 					{sideprops.contentstype == 1 ? this.renderCategory(sideprops.categoryData) : ""}
 					{sideprops.contentstype == 2 ? this.renderFood(sideprops.foodData) : ""}
-					{sideprops.contentstype == 4 ? this.renderRestaurnt(sideprops.restaurantData) : ""}
+					{sideprops.contentstype == 3 ? this.renderRestaurantList(sideprops.restaurantList) : ""}
+					{sideprops.contentstype == 4 ? this.renderRestaurant(sideprops.restaurantData) : ""}
 				</div>
 				
 			</div>
